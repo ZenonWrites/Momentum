@@ -5,7 +5,11 @@ from google import genai
 from google.genai import types
 
 
-client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+def get_gemini_client():
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        raise ValueError("GEMINI_API_KEY environment variable is not set")
+    return genai.Client(api_key=api_key)
 
 
 def generate_daily_plan(user, user_profile, yesterday_date):
@@ -47,6 +51,7 @@ Based on all the context above, generate a list of 3-5 objectives for today.
 5. Format the output as a JSON array of strings ONLY. Do not include any other text or markdown. Example: ["Finish the intro to the report.", "Go for a 20-minute walk.", "Read 10 pages of 'Atomic Habits'."]"""
 
     try:
+        client = get_gemini_client()
         response = client.models.generate_content(
             model="gemini-2.5-flash",
             contents=prompt
@@ -113,6 +118,7 @@ Provide your suggestion in the following JSON format ONLY:
 Do not include any other text or markdown."""
 
     try:
+        client = get_gemini_client()
         response = client.models.generate_content(
             model="gemini-2.5-flash",
             contents=prompt
@@ -182,6 +188,7 @@ Provide your workout in the following JSON format ONLY:
 Do not include any other text or markdown."""
 
     try:
+        client = get_gemini_client()
         response = client.models.generate_content(
             model="gemini-2.5-flash",
             contents=prompt
