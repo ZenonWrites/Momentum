@@ -39,8 +39,8 @@ An intelligent productivity and wellness application that combines task manageme
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
-cd momentum
+git clone https://github.com/ZenonWrites/Momentum.git
+cd Momentum
 ```
 
 ### 2. Backend Setup
